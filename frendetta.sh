@@ -5,7 +5,15 @@
 # specify $ANDROID_SERIAL to install to a specific device
 # i'm making an actual patcher app in the future so neither a pc or adb will be required
 
-DATA=$(mktemp --directory --tmpdir "frendetta.XXXXXXXX")
+OS=$(uname)
+case $OS in
+  'Darwin')
+    DATA=$(mktemp -d -t "frendetta.XXXXXXXX")
+    ;;
+  *)
+    DATA=$(mktemp --directory --tmpdir "frendetta.XXXXXXXX")
+    ;;
+esac
 
 exec > >(tee "$DATA/frendetta.log") 2>&1
 
